@@ -5,9 +5,12 @@ using APIAplicacion.Data;
 using APIAplicacion.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using APIAplicacion.Helpers;
 
 namespace APIAplicacion.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsuariosController : ControllerBase
@@ -47,6 +50,8 @@ namespace APIAplicacion.Controllers
             {
                 return BadRequest("El correo ya está registrado.");
             }
+
+            usuario.Password = HashHelper.HashPassword(usuario.Password);
 
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
