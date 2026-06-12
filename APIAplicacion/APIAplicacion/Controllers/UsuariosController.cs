@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using APIAplicacion.Data;
+﻿using APIAplicacion.Data;
 using APIAplicacion.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +26,7 @@ namespace APIAplicacion.Controllers
             return await _context.Usuarios.ToListAsync();
         }
 
-        // GET: api/usuarios/1
+        // GET: api/usuarios/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
         {

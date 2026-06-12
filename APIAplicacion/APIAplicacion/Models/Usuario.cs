@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace APIAplicacion.Models
 {
@@ -11,18 +8,18 @@ namespace APIAplicacion.Models
 
         [Required]
         [MinLength(3)]
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
         [Required]
         [MinLength(4)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         [Required]
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
 
         [Required]
         [EmailAddress]
-        public string Correo { get; set; }
+        public string? Correo { get; set; }
         public DateTime FechaDeNacimiento { get; set; }
 
     }
