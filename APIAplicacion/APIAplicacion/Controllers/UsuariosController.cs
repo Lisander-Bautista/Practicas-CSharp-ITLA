@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using APIAplicacion.Helpers;
+using APIAplicacion.Services;
 
 namespace APIAplicacion.Controllers
 {
@@ -13,10 +14,12 @@ namespace APIAplicacion.Controllers
     public class UsuariosController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly LogService _logService;
 
         public UsuariosController(AppDbContext context)
         {
             _context = context;
+            _logService = new LogService();
         }
 
         // GET: api/usuarios
@@ -39,6 +42,7 @@ namespace APIAplicacion.Controllers
         }
 
         // POST: api/usuarios
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
@@ -52,6 +56,9 @@ namespace APIAplicacion.Controllers
 
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
+
+            // Guardar log del nuevo usuario
+            _logService.GuardarLog(usuario);
 
             return CreatedAtAction(nameof(GetUsuario), new { id = usuario.Id }, usuario);
         }
@@ -93,6 +100,18 @@ namespace APIAplicacion.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        // GET: api/usuarios/logs
+        [HttpGet("logs")]
+        public IActionResult ObtenerLogs()
+        {
+            var logs = _logService.ObtenerLogs();
+
+            if (logs.Count == 0)
+                return NotFound("No hay logs disponibles en este momento.");
+
+            return Ok(logs);
         }
     }
 }

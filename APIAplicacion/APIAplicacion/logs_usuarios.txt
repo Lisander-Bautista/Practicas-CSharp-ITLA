@@ -1,0 +1,2 @@
+{"Id":1,"Username":"admin","Nombre":"Admin","Correo":"admin@test.com","FechaRegistro":"2026-06-14T17:36:49.8149654-04:00"}
+{"Id":2,"Username":"victor","Nombre":"Victor","Correo":"victor@test.com","FechaRegistro":"2026-06-14T17:39:06.294082-04:00"}
